@@ -2,6 +2,7 @@
 
 import io from 'socket.io-client'
 const socket = io('http://localhost:4741')
+// const messageEvents = require('./messages/messageEvents')
 // use require with a reference to bundle the file and use it in this file
 // const example = require('./example')
 
@@ -10,5 +11,13 @@ const socket = io('http://localhost:4741')
 
 $(() => {
   // your JS code goes here
-
+  // $('form').submit(function (e) {
+  //   e.preventDefault() // prevents page reloading
+  //   socket.emit('chat message', $('#m').val())
+  //   $('#m').val('')
+  //   return false
+  // })
+  socket.on('chat message', function (msg) {
+    $('#messages').append($('<li>').text(msg))
+  })
 })
