@@ -3,6 +3,7 @@
 // import io from 'socket.io-client'
 // const socket = io('http://localhost:4741')
 const messageEvents = require('./messages/messageEvents')
+const authEvents = require('./auth/events')
 // use require with a reference to bundle the file and use it in this file
 // const example = require('./example')
 
@@ -20,5 +21,6 @@ $(() => {
   // socket.on('chat message', function (msg) {
   //   $('#messages').append($('<li>').text(msg))
   // })
+  authEvents.addHandlers()
   messageEvents.addHandlers()
 })

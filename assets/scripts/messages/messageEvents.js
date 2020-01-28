@@ -6,8 +6,12 @@ const api = require('./api')
 const sendMessage = (event) => {
   event.preventDefault() // prevents page reloading
   // socket.emit('chat message', $('#m').val())
-  api.create($('#m').val())
-    .then(res => socket.emit('chat message', res.message.text))
+  const msg = $('#m').val()
+  api.create(msg)
+    .then(res => {
+      $('#messages').append($('<li>').text(msg))
+      socket.emit('chat message', res.message.text)
+    })
   $('#m').val('')
   return false
 }
@@ -24,7 +28,7 @@ const getMessages = () => {
 const addHandlers = () => {
   // sendMessage()
   getMessages()
-  $('form').submit(sendMessage)
+  $('#chat-form').submit(sendMessage)
   socket.on('chat message', function (msg) {
     $('#messages').append($('<li>').text(msg))
   })
