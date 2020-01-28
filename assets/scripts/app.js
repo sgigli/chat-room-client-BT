@@ -1,8 +1,8 @@
 'use strict'
 
-import io from 'socket.io-client'
-const socket = io('http://localhost:4741')
-// const messageEvents = require('./messages/messageEvents')
+// import io from 'socket.io-client'
+// const socket = io('http://localhost:4741')
+const messageEvents = require('./messages/messageEvents')
 // use require with a reference to bundle the file and use it in this file
 // const example = require('./example')
 
@@ -17,7 +17,8 @@ $(() => {
   //   $('#m').val('')
   //   return false
   // })
-  socket.on('chat message', function (msg) {
-    $('#messages').append($('<li>').text(msg))
-  })
+  // socket.on('chat message', function (msg) {
+  //   $('#messages').append($('<li>').text(msg))
+  // })
+  messageEvents.addHandlers()
 })
