@@ -8,8 +8,8 @@ const sendMessage = (event) => {
   event.preventDefault() // prevents page reloading
   // socket.emit('chat message', $('#m').val())
   const msg = $('#m').val()
-  console.log(store.user.email)
-  const username = store.user.email
+  console.log(store.user.username)
+  const username = store.user.username
   api.create(msg, username)
     .then(res => {
       console.log(res.message.username)
@@ -23,13 +23,15 @@ const sendMessage = (event) => {
 const getMessages = () => {
   api.index()
     .then(res => {
-      res.messages.forEach(msg => {
-        if (msg.username) {
-          $('#messages').append($('<li>').text(`${msg.username}: ${msg.text}`))
-        } else {
-          $('#messages').append($('<li>').text(msg.text))
-        }
-      })
+      const filteredForUsername = res.messages.filter(msg => msg.username)
+      filteredForUsername.forEach(msg => $('#messages').append($('<li>').text(`${msg.username}: ${msg.text}`)))
+      // res.messages.forEach(msg => {
+      //   if (msg.username) {
+      //     $('#messages').append($('<li>').text(`${msg.username}: ${msg.text}`))
+      //   } else {
+      //     $('#messages').append($('<li>').text(msg.text))
+      //   }
+      // })
     })
 }
 
