@@ -36,8 +36,20 @@ const destroy = (id) => {
   })
 }
 
+const update = (formData, id) => {
+  return $.ajax({
+    url: config.apiUrl + '/messages/' + id,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    },
+    data: formData
+  })
+}
+
 module.exports = {
   create,
   index,
-  destroy
+  destroy,
+  update
 }

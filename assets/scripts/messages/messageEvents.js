@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 const socket = io('http://localhost:4741')
 const api = require('./api')
 const store = require('../store')
+const getFormFields = require('../../../lib/get-form-fields')
 const getMessagesHtml = require('../templates/messages-listing.handlebars')
 const getPostHtml = require('../templates/post-message.handlebars')
 
@@ -45,6 +46,17 @@ const onDelete = (event) => {
     .then(getMessages)
 }
 
+const onUpdate = event => {
+  event.preventDefault()
+  const form = event.target
+  const formData = getFormFields(form)
+  const id = $(event.target).data('id')
+  console.log(formData, id)
+  api.update(formData, id)
+    .then(console.log)
+    .then(getMessages)
+}
+
 const addHandlers = () => {
   // sendMessage()
   $('#get-messages').on('click', getMessages)
@@ -53,6 +65,7 @@ const addHandlers = () => {
     $('#messages').append($('<li>').text(msg))
   })
   $('#messages').on('click', '.delete', onDelete)
+  $('#messages').on('submit', '.update', onUpdate)
 }
 
 module.exports = {
