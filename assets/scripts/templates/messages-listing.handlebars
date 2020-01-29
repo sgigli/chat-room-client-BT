@@ -1,6 +1,8 @@
 {{#each messages as |msg|}}
   {{log msg.owner}}
   <li data-id="{{msg._id}}">{{msg.username}}: {{msg.text}}
-    <button data-id={{msg._id}} class="delete">delete</button>
+    {{#if msg.editable}}
+      <button data-id={{msg._id}} class="delete">delete</button>
+    {{/if}}
   </li>
 {{/each}}
