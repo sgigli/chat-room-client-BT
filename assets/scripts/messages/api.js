@@ -26,7 +26,18 @@ const index = () => {
   })
 }
 
+const destroy = (id) => {
+  return $.ajax({
+    url: config.apiUrl + '/messages/' + id,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    }
+  })
+}
+
 module.exports = {
   create,
-  index
+  index,
+  destroy
 }

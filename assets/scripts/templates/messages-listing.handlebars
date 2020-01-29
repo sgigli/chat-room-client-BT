@@ -1,0 +1,3 @@
+{{#each messages as |msg|}}
+  <li data-id="{{msg._id}}">{{msg.username}}: {{msg.text}} <button data-id={{msg._id}} class="delete">delete</button></li>
+{{/each}}
