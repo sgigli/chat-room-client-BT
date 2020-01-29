@@ -3,7 +3,7 @@
 const config = require('../config')
 const store = require('../store')
 
-const create = (msg) => {
+const create = (msg, username) => {
   return $.ajax({
     url: config.apiUrl + '/messages',
     method: 'POST',
@@ -12,7 +12,8 @@ const create = (msg) => {
     },
     data: {
       'message': {
-        'text': `${msg}`
+        'text': `${msg}`,
+        'username': `${username}`
       }
     }
   })
