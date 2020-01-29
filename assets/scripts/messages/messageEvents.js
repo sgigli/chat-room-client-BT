@@ -23,8 +23,14 @@ const getMessages = () => {
   api.index()
     .then(res => {
       const filteredForUsername = res.messages.filter(msg => msg.username)
-      filteredForUsername.forEach(msg => console.log(msg._id))
-      const showMessagesHtml = getMessagesHtml({ messages: filteredForUsername })
+      // filteredForUsername.forEach(msg => console.log(msg._id))
+      console.log(store.user._id)
+      const data = {
+        messages: filteredForUsername,
+        id: store.user._id
+      }
+      // { messages: filteredForUsername }
+      const showMessagesHtml = getMessagesHtml(data)
       $('#messages').append(showMessagesHtml)
       // const filteredForUsername = res.messages.filter(msg => msg.username)
       // filteredForUsername.forEach(msg => $('#messages').append($('<li>').text(`${msg.username}: ${msg.text}`)))
@@ -53,7 +59,7 @@ const onDelete = (event) => {
 
 const addHandlers = () => {
   // sendMessage()
-  getMessages()
+  $('#get-messages').on('click', getMessages)
   $('#chat-form').submit(sendMessage)
   socket.on('chat message', function (msg) {
     $('#messages').append($('<li>').text(msg))
