@@ -42,7 +42,7 @@ const onDelete = (event) => {
   console.log($(event.target).data('id'))
   const id = $(event.target).data('id')
   api.destroy(id)
-    .then(console.log('success'))
+    .then(() => { socket.emit('chat message', `BLANK`) })
     .then(getMessages)
 }
 
