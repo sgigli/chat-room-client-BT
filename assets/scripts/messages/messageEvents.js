@@ -53,7 +53,7 @@ const onUpdate = event => {
   const id = $(event.target).data('id')
   console.log(formData, id)
   api.update(formData, id)
-    .then(console.log)
+    .then(() => { socket.emit('chat message', `BLANK`) })
     .then(getMessages)
 }
 
@@ -62,7 +62,8 @@ const addHandlers = () => {
   $('#get-messages').on('click', getMessages)
   $('#chat-form').submit(sendMessage)
   socket.on('chat message', function (msg) {
-    $('#messages').append($('<li>').text(msg))
+    // $('#messages').append($('<li>').text(msg))
+    getMessages()
   })
   $('#messages').on('click', '.delete', onDelete)
   $('#messages').on('submit', '.update', onUpdate)
