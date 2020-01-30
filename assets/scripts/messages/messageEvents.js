@@ -60,7 +60,7 @@ const onUpdate = event => {
 
 const test = event => {
   event.preventDefault()
-  socket.emit('test-room', `path test`)
+  socket.emit('send-message', chatroomName)
 }
 
 const getChatrooms = () => {
@@ -81,6 +81,7 @@ const createChatroom = event => {
 
 const getCRMessages = event => {
   chatroomId = $(event.target).data('id')
+  chatroomName = $(event.target).data('name')
   api.showChatroom(chatroomId)
     .then(res => {
       // const filteredForUsername = res.messages.filter(msg => msg.username)
@@ -93,7 +94,26 @@ const getCRMessages = event => {
       $('#messages').text('')
       $('#messages').append(showMessagesHtml)
     })
+    .then(() => {
+      socket.emit('join-room', chatroomName)
+    })
+    .then(() => {
+      socket.on(chatroomName, function (msg) {
+        getCRMessages()
+      })
+    })
 }
+
+// const joinRoom = () => {
+//   socket.emit('join-room', chatroomName)
+// }
+//
+// const listenForMessage = () => {
+//   socket.on(chatroomName, function (msg) {
+//     // $('#messages').append($('<li>').text(msg))
+//     console.log('TEST of rooms')
+//   })
+// }
 
 const sendCRMessage = event => {
   event.preventDefault()
@@ -101,10 +121,19 @@ const sendCRMessage = event => {
   const username = store.user.username
   // console.log(chatroomId)
   api.createCRMessage(msg, username, chatroomId)
-    .then(console.log)
+    // .then(console.log)
+    .then(res => {
+      console.log(res)
+      const showPostHtml = getPostHtml({ msg: res.message, id: store.user._id })
+      $('#messages').append(showPostHtml)
+      // $('#messages').append($('<li>').text(`${username}: ${msg}`))
+      // socket.emit('chat message', `${username}: ${res.message.text}`)
+      socket.emit('send-message', chatroomName)
+    })
 }
 
 let chatroomId
+let chatroomName
 const addHandlers = () => {
   // sendMessage()
   getChatrooms()
