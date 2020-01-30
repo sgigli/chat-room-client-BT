@@ -6,6 +6,7 @@ const store = require('../store')
 const getFormFields = require('../../../lib/get-form-fields')
 const getMessagesHtml = require('../templates/messages-listing.handlebars')
 const getPostHtml = require('../templates/post-message.handlebars')
+const getChatroomsHtml = require('../templates/chatrooms-listing.handlebars')
 
 const sendMessage = (event) => {
   event.preventDefault() // prevents page reloading
@@ -64,7 +65,11 @@ const test = event => {
 
 const getChatrooms = () => {
   api.indexChatrooms()
-    .then(console.log)
+    .then(res => {
+      const showChatroomsHtml = getChatroomsHtml({ chatrooms: res.chatrooms })
+      console.log(showChatroomsHtml)
+      $('#chat-rooms').append(showChatroomsHtml)
+    })
 }
 
 const createChatroom = event => {
