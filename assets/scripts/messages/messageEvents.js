@@ -39,7 +39,6 @@ const getMessages = () => {
 
 const onDelete = (event) => {
   event.preventDefault()
-  console.log($(event.target).data('id'))
   const id = $(event.target).data('id')
   api.destroy(id)
     .then(() => { socket.emit('chat message', `BLANK`) })
@@ -51,7 +50,6 @@ const onUpdate = event => {
   const form = event.target
   const formData = getFormFields(form)
   const id = $(event.target).data('id')
-  console.log(formData, id)
   api.update(formData, id)
     .then(() => { socket.emit('chat message', `BLANK`) })
     .then(getMessages)
