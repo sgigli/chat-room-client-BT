@@ -34,7 +34,7 @@ const onSignInFailure = () => {
 
 const onSignOutSuccess = () => {
   store.user = {}
-  // gameEvents.signOutReset()
+  $('#messages').text('')
   onSuccess('You successfully signed out!')
   $('.before-auth').show()
   $('.after-auth').hide()
