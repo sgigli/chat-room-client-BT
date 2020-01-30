@@ -1,0 +1,7 @@
+<li data-id="{{msg._id}}">{{msg.username}}: {{msg.text}}
+  <form data-id="{{msg._id}}" class="update">
+    <input name="message[text]" type="text" placeholder="message">
+    <button>update</button>
+  </form>
+  <button data-id={{msg._id}} class="delete">delete</button>
+</li>
