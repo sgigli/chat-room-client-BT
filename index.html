@@ -14,8 +14,8 @@
 </head>
 
 <body>
-  <!-- <h1>Browser Template</h1> -->
-  <div class='sign'>
+  <h1>Chat Room</h1>
+  <div class='before-auth'>
     <h2>Sign Up</h2>
     <form id="sign-up">
       <input name="credentials[email]" type="text" placeholder="email">
@@ -31,18 +31,33 @@
       <button class="btn btn-primary">Submit</button>
     </form>
   </div>
-  <button id="get-messages">Messages</button>
-  <div id="chat-room">
-    <ul id="messages"></ul>
-    <br />
-    <br />
-    <br />
-    <form id="chat-form" action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+  <div class="after-auth">
+    <h2>Change Password</h2>
+    <form id="change-password">
+      <input type="password" name="passwords[old]" placeholder="Old Password">
+      <input type="password" name="passwords[new]" placeholder="New Password">
+      </br>
+      <button class="btn btn-primary">Change Password</button>
+    </form>
+    <form id="sign-out">
+      <button class="btn btn-danger">Sign out</button>
     </form>
   </div>
 
-      <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <div class="after-auth">
+    <button id="get-messages">Messages</button>
+    <div id="chat-room">
+      <ul id="messages"></ul>
+      <br />
+      <br />
+      <br />
+      <form id="chat-form" action="">
+        <input id="m" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
     $(function() {
       var socket = io();

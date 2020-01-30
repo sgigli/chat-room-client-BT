@@ -1,5 +1,4 @@
 {{#each messages as |msg|}}
-  {{log msg.owner}}
   <li data-id="{{msg._id}}">{{msg.username}}: {{msg.text}}
     {{#if msg.editable}}
       <form data-id="{{msg._id}}" class="update">
