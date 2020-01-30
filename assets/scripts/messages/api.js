@@ -70,11 +70,22 @@ const createChatroom = (name) => {
   })
 }
 
+const showChatroom = id => {
+  return $.ajax({
+    url: config.apiUrl + '/chatrooms/' + id,
+    method: 'GET',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    }
+  })
+}
+
 module.exports = {
   create,
   index,
   destroy,
   update,
   indexChatrooms,
-  createChatroom
+  createChatroom,
+  showChatroom
 }

@@ -81,6 +81,24 @@ const createChatroom = event => {
     .then(console.log)
 }
 
+const getCRMessages = event => {
+  console.log($(event.target).data('id'))
+  const id = $(event.target).data('id')
+  api.showChatroom(id)
+    .then(res => {
+      console.log(res.chatroom.messages)
+      // const filteredForUsername = res.messages.filter(msg => msg.username)
+      // filteredForUsername.forEach(msg => { msg.editable = msg.owner === store.user._id || false })
+      const data = {
+        messages: res.chatroom.messages,
+        id: store.user._id
+      }
+      const showMessagesHtml = getMessagesHtml(data)
+      $('#messages').text('')
+      $('#messages').append(showMessagesHtml)
+    })
+}
+
 const addHandlers = () => {
   // sendMessage()
   getChatrooms()
@@ -98,6 +116,7 @@ const addHandlers = () => {
   $('#messages').on('submit', '.update', onUpdate)
   $('#test').on('click', test)
   $('#create-chat-room').on('submit', createChatroom)
+  $('#chat-rooms').on('click', '.chat-room-class', getCRMessages)
 }
 
 module.exports = {
