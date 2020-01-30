@@ -67,7 +67,6 @@ const getChatrooms = () => {
   api.indexChatrooms()
     .then(res => {
       const showChatroomsHtml = getChatroomsHtml({ chatrooms: res.chatrooms })
-      console.log(showChatroomsHtml)
       $('#chat-rooms').append(showChatroomsHtml)
     })
 }
@@ -75,18 +74,15 @@ const getChatrooms = () => {
 const createChatroom = event => {
   event.preventDefault()
   const formData = getFormFields(event.target)
-  console.log(formData.chatroom.name)
   const name = formData.chatroom.name
   api.createChatroom(name)
     .then(console.log)
 }
 
 const getCRMessages = event => {
-  console.log($(event.target).data('id'))
-  const id = $(event.target).data('id')
-  api.showChatroom(id)
+  chatroomId = $(event.target).data('id')
+  api.showChatroom(chatroomId)
     .then(res => {
-      console.log(res.chatroom.messages)
       // const filteredForUsername = res.messages.filter(msg => msg.username)
       // filteredForUsername.forEach(msg => { msg.editable = msg.owner === store.user._id || false })
       const data = {
@@ -99,11 +95,21 @@ const getCRMessages = event => {
     })
 }
 
+const sendCRMessage = event => {
+  event.preventDefault()
+  const msg = $('#m').val()
+  const username = store.user.username
+  // console.log(chatroomId)
+  api.createCRMessage(msg, username, chatroomId)
+    .then(console.log)
+}
+
+let chatroomId
 const addHandlers = () => {
   // sendMessage()
   getChatrooms()
   $('#get-messages').on('click', getMessages)
-  $('#chat-form').submit(sendMessage)
+  $('#chat-form').submit(sendCRMessage)
   socket.on('chat message', function (msg) {
     // $('#messages').append($('<li>').text(msg))
     getMessages()

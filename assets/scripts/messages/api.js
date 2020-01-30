@@ -80,6 +80,23 @@ const showChatroom = id => {
   })
 }
 
+const createCRMessage = (msg, username, id) => {
+  return $.ajax({
+    url: config.apiUrl + '/messages',
+    method: 'POST',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    },
+    data: {
+      'message': {
+        'text': `${msg}`,
+        'username': `${username}`,
+        'chatroomId': `${id}`
+      }
+    }
+  })
+}
+
 module.exports = {
   create,
   index,
@@ -87,5 +104,6 @@ module.exports = {
   update,
   indexChatrooms,
   createChatroom,
-  showChatroom
+  showChatroom,
+  createCRMessage
 }
