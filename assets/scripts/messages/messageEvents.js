@@ -39,7 +39,7 @@ const getMessages = () => {
 
 const onDelete = (event) => {
   event.preventDefault()
-  console.log($(event.target).data('id'))
+  // console.log($(event.target).data('id'))
   const id = $(event.target).data('id')
   api.destroy(id)
     .then(() => { socket.emit('chat message', `BLANK`) })
@@ -51,22 +51,48 @@ const onUpdate = event => {
   const form = event.target
   const formData = getFormFields(form)
   const id = $(event.target).data('id')
-  console.log(formData, id)
+  // console.log(formData, id)
   api.update(formData, id)
     .then(() => { socket.emit('chat message', `BLANK`) })
     .then(getMessages)
 }
 
+const test = event => {
+  event.preventDefault()
+  socket.emit('test-room', `path test`)
+}
+
+const getChatrooms = () => {
+  api.indexChatrooms()
+    .then(console.log)
+}
+
+const createChatroom = event => {
+  event.preventDefault()
+  const formData = getFormFields(event.target)
+  console.log(formData.chatroom.name)
+  const name = formData.chatroom.name
+  api.createChatroom(name)
+    .then(console.log)
+}
+
 const addHandlers = () => {
   // sendMessage()
+  getChatrooms()
   $('#get-messages').on('click', getMessages)
   $('#chat-form').submit(sendMessage)
   socket.on('chat message', function (msg) {
     // $('#messages').append($('<li>').text(msg))
     getMessages()
   })
+  socket.on('test-room', function (msg) {
+    // $('#messages').append($('<li>').text(msg))
+    console.log(msg)
+  })
   $('#messages').on('click', '.delete', onDelete)
   $('#messages').on('submit', '.update', onUpdate)
+  $('#test').on('click', test)
+  $('#create-chat-room').on('submit', createChatroom)
 }
 
 module.exports = {

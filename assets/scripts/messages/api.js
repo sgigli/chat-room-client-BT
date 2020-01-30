@@ -47,9 +47,34 @@ const update = (formData, id) => {
   })
 }
 
+const indexChatrooms = () => {
+  return $.ajax({
+    url: config.apiUrl + '/chatrooms',
+    method: 'GET'
+  })
+}
+
+const createChatroom = (name) => {
+  return $.ajax({
+    url: config.apiUrl + '/chatrooms',
+    method: 'POST',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    },
+    data: {
+      'chatroom': {
+        'name': `${name}`,
+        'messages': []
+      }
+    }
+  })
+}
+
 module.exports = {
   create,
   index,
   destroy,
-  update
+  update,
+  indexChatrooms,
+  createChatroom
 }
