@@ -1,6 +1,7 @@
 'use strict'
-import apiUrl from '../config'
+import {apiUrl} from '../config'
 import io from 'socket.io-client'
+console.log(apiUrl)
 const socket = io(apiUrl)
 const api = require('./api')
 const store = require('../store')
