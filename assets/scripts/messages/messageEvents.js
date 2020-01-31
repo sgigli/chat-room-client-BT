@@ -1,6 +1,7 @@
 'use strict'
+import apiUrl from '../config'
 import io from 'socket.io-client'
-const socket = io('http://localhost:4741')
+const socket = io(apiUrl)
 const api = require('./api')
 const store = require('../store')
 const getFormFields = require('../../../lib/get-form-fields')
