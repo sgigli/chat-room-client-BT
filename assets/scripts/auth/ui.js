@@ -4,12 +4,12 @@ const store = require('../store')
 // const gameEvents = require('../game/events')
 
 const onSuccess = message => {
-  $('#message').text(message)
+  $('#auth-message').text(message)
   $('form').trigger('reset')
 }
 
 const onFailure = message => {
-  $('#message').text(message)
+  $('#auth-message').text(message)
   $('form').trigger('reset')
 }
 
@@ -23,7 +23,8 @@ const onSignUpFailure = () => {
 
 const onSignInSuccess = responseData => {
   store.user = responseData.user
-  $('#upper-left').text('You successfully signed in!')
+  onSuccess('You successfully signed in!')
+  // $('#upper-left').text('You successfully signed in!')
   $('.after-auth').show()
   $('.before-auth').hide()
 }
@@ -46,12 +47,14 @@ const onSignOutFailure = () => {
 
 const onChangePasswordSuccess = () => {
   $('form').trigger('reset')
-  $('#upper-left').text('Successful password change!')
+  // $('#upper-left').text('Successful password change!')
+  onSuccess('You successfully changed your password!')
 }
 
 const onChangePasswordFailure = () => {
   $('form').trigger('reset')
-  $('#upper-left').text('Please try again')
+  // $('#upper-left').text('Please try again')
+  onSuccess('Please try to change your password again.')
 }
 
 module.exports = {
