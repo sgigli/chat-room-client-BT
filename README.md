@@ -10,11 +10,11 @@ for its user interface and functionality.
 ![App Screen Shot](/appScreenshot.png)
 
 ## Links
-Deployed frontend: https://sgigli.github.io/chat-room-client-BT/
-Backend repo: https://github.com/sgigli/chat-room-api
-Deployed backend: https://agile-citadel-40916.herokuapp.com/
-Wireframe: https://imgur.com/a/U6XZULT
-User Stories: https://imgur.com/a/ggr2EQP
+* Deployed frontend: https://sgigli.github.io/chat-room-client-BT/
+* Backend repo: https://github.com/sgigli/chat-room-api
+* Deployed backend: https://agile-citadel-40916.herokuapp.com/
+* Wireframe: https://imgur.com/a/U6XZULT
+* User Stories: https://imgur.com/a/ggr2EQP
 
 ## Technologies Used
 Socket.io, Node.js, Express, MongoDB, Bootstrap
