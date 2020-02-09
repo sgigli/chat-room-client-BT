@@ -60,7 +60,8 @@ const onUpdate = event => {
 
 const test = event => {
   event.preventDefault()
-  socket.emit('send-message', chatroomName)
+  // console.log(chatroomName)
+  socket.emit('send-message', 'test-room')
 }
 
 const getChatrooms = () => {
@@ -79,13 +80,9 @@ const createChatroom = event => {
     .then(console.log)
 }
 
-const getCRMessages = event => {
-  chatroomId = $(event.target).data('id')
-  chatroomName = $(event.target).data('name')
-  api.showChatroom(chatroomId)
+const getCRMessages = () => {
+  return api.showChatroom(chatroomId)
     .then(res => {
-      // const filteredForUsername = res.messages.filter(msg => msg.username)
-      // filteredForUsername.forEach(msg => { msg.editable = msg.owner === store.user._id || false })
       const data = {
         messages: res.chatroom.messages,
         id: store.user._id
@@ -94,11 +91,18 @@ const getCRMessages = event => {
       $('#messages').text('')
       $('#messages').append(showMessagesHtml)
     })
+}
+
+const joinChatroom = (event) => {
+  chatroomId = $(event.target).data('id')
+  chatroomName = $(event.target).data('name')
+  getCRMessages(chatroomId)
     .then(() => {
       socket.emit('join-room', chatroomName)
     })
     .then(() => {
-      socket.on(chatroomName, function (msg) {
+      socket.on('message', function (msg) {
+        console.log('TEST')
         getCRMessages()
       })
     })
@@ -139,11 +143,12 @@ const addHandlers = () => {
   getChatrooms()
   $('#get-messages').on('click', getMessages)
   $('#chat-form').submit(sendCRMessage)
+  socket.emit('join-room', 'test-room')
   socket.on('chat message', function (msg) {
     // $('#messages').append($('<li>').text(msg))
     getMessages()
   })
-  socket.on('test-room', function (msg) {
+  socket.on('message', function (msg) {
     // $('#messages').append($('<li>').text(msg))
     console.log(msg)
   })
@@ -151,7 +156,7 @@ const addHandlers = () => {
   $('#messages').on('submit', '.update', onUpdate)
   $('#test').on('click', test)
   $('#create-chat-room').on('submit', createChatroom)
-  $('#chat-rooms').on('click', '.chat-room-class', getCRMessages)
+  $('#chat-rooms').on('click', '.chat-room-class', joinChatroom)
 }
 
 module.exports = {
