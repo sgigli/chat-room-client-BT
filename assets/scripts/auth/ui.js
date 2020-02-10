@@ -6,11 +6,13 @@ const messagesEvents = require('../messages/messageEvents')
 
 const onSuccess = message => {
   $('#message').text(message)
+  $('#auth-message').text(message)
   $('form').trigger('reset')
 }
 
 const onFailure = message => {
   $('#message').text(message)
+  $('#auth-message').text(message)
   $('form').trigger('reset')
 }
 
@@ -26,7 +28,7 @@ const onSignInSuccess = responseData => {
   store.user = responseData.user
   messagesEvents.getChatrooms()
   // console.log(store)
-  $('#upper-left').text('You successfully signed in!')
+  onSuccess('You successfully signed in!')
   $('.after-auth').show()
   $('.before-auth').hide()
 }
@@ -37,7 +39,7 @@ const onSignInFailure = () => {
 
 const onSignOutSuccess = () => {
   store.user = {}
-  // gameEvents.signOutReset()
+  $('#messages').text('')
   onSuccess('You successfully signed out!')
   $('.before-auth').show()
   $('.after-auth').hide()
@@ -49,12 +51,12 @@ const onSignOutFailure = () => {
 
 const onChangePasswordSuccess = () => {
   $('form').trigger('reset')
-  $('#upper-left').text('Successful password change!')
+  onSuccess('Successful password change!')
 }
 
 const onChangePasswordFailure = () => {
   $('form').trigger('reset')
-  $('#upper-left').text('Please try again')
+  onFailure('Please try again')
 }
 
 module.exports = {

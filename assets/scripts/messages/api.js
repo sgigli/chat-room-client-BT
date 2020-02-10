@@ -26,6 +26,33 @@ const index = () => {
   })
 }
 
+const msgDestroy = (msgId, crId) => {
+  return $.ajax({
+    url: config.apiUrl + '/messages/' + msgId + '/' + crId,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    }
+  })
+}
+
+const msgUpdate = (text, name, msgId, crId) => {
+  return $.ajax({
+    url: config.apiUrl + '/messages/' + msgId,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    },
+    data: {
+      'message': {
+        'text': `${text}`,
+        'username': `${name}`,
+        'chatroomId': `${crId}`
+      }
+    }
+  })
+}
+
 const destroy = (id) => {
   return $.ajax({
     url: config.apiUrl + '/chatrooms/' + id,
@@ -105,5 +132,7 @@ module.exports = {
   indexChatrooms,
   createChatroom,
   showChatroom,
-  createCRMessage
+  createCRMessage,
+  msgDestroy,
+  msgUpdate
 }

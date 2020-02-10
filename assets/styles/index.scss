@@ -14,7 +14,7 @@ body {
   padding: 3px;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 50%;
 }
 
 #chat-room #chat-form input {
@@ -43,4 +43,8 @@ body {
 
 #chat-room #messages li:nth-child(odd) {
   background: #eee;
+}
+
+.after-auth {
+  display: none;
 }

@@ -15,7 +15,9 @@
 
 <body>
   <!-- <h1>Browser Template</h1> -->
-  <div class='sign'>
+  <h1>Chat Room</h1>
+  <h4 id="auth-message"></h4>
+  <div class='before-auth'>
     <h2>Sign Up</h2>
     <form id="sign-up">
       <input name="credentials[email]" type="text" placeholder="email">
@@ -31,9 +33,59 @@
       <button class="btn btn-primary">Submit</button>
     </form>
   </div>
-  <button id="get-messages">Messages</button>
-  <button id="test">test</button>
-  <h1>Chatrooms</h1>
+  <div class="after-auth">
+    <h2>Change Password</h2>
+    <form id="change-password">
+      <input type="password" name="passwords[old]" placeholder="Old Password">
+      <input type="password" name="passwords[new]" placeholder="New Password">
+      </br>
+      <button class="btn btn-primary">Change Password</button>
+    </form>
+    <form id="sign-out">
+      <button class="btn btn-danger">Sign out</button>
+    </form>
+  </div>
+
+  <!-- <button id="get-messages">Messages</button>
+  <button id="test">test</button> -->
+  <div class="container">
+    <div class="row">
+      <!-- <div class="col-sm">
+        <div id="chat-room">
+          <ul id="messages"></ul>
+          <br />
+          <br />
+          <br />
+          <form id="chat-form" action="">
+            <input id="m" autocomplete="off" /><button>Send</button>
+          </form>
+        </div>
+      </div> -->
+      <div class="col-sm">
+        <h1>Chatrooms</h1>
+        <h3>Create Chatroom</h3>
+        <form id="create-chat-room">
+          <input name="chatroom[name]" type="text" placeholder="email">
+          <button class="">Submit</button>
+        </form>
+        <div id="chat-rooms-container">
+          <ul id='chat-rooms'></ul>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div id="chat-room">
+          <ul id="messages"></ul>
+          <br />
+          <br />
+          <br />
+          <form id="chat-form" action="">
+            <input id="m" autocomplete="off" /><button>Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <h1>Chatrooms</h1>
   <h3>Create Chatroom</h3>
   <form id="create-chat-room">
     <input name="chatroom[name]" type="text" placeholder="email">
@@ -41,8 +93,8 @@
   </form>
   <div id="chat-rooms-container">
     <ul id='chat-rooms'></ul>
-  </div>
-  <div id="chat-room">
+  </div> -->
+  <!-- <div id="chat-room">
     <ul id="messages"></ul>
     <br />
     <br />
@@ -50,9 +102,9 @@
     <form id="chat-form" action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
-  </div>
+  </div> -->
 
-      <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
     $(function() {
       var socket = io();

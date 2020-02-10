@@ -1,6 +1,7 @@
 'use strict'
 import io from 'socket.io-client'
-const socket = io('http://localhost:4741')
+import { apiUrl } from '../config'
+const socket = io(apiUrl)
 const api = require('./api')
 const store = require('../store')
 const getFormFields = require('../../../lib/get-form-fields')
@@ -38,7 +39,28 @@ const getMessages = () => {
     })
 }
 
-const onDelete = (event) => {
+const onMGDelete = (event) => {
+  event.preventDefault()
+  // console.log($(event.target).data('id'))
+  const msgId = $(event.target).data('id')
+  // console.log(id)
+  api.msgDestroy(msgId, chatroomId)
+    .then(getCRMessages)
+}
+
+const onMGUpdate = event => {
+  event.preventDefault()
+  const form = event.target
+  const formData = getFormFields(form)
+  const msgId = $(event.target).data('id')
+  const name = $(event.target).data('name')
+  console.log(formData.message.text, name, msgId, chatroomId)
+  api.msgUpdate(formData.message.text, name, msgId, chatroomId)
+    // .then(() => { socket.emit('chat message', `BLANK`) })
+    .then(getCRMessages)
+}
+
+const onCRDelete = (event) => {
   event.preventDefault()
   // console.log($(event.target).data('id'))
   const id = $(event.target).data('id')
@@ -48,7 +70,7 @@ const onDelete = (event) => {
     // .then(() => { socket.emit('chat message', `BLANK`) })
 }
 
-const onUpdate = event => {
+const onCRUpdate = event => {
   event.preventDefault()
   const form = event.target
   const formData = getFormFields(form)
@@ -161,8 +183,10 @@ const addHandlers = () => {
     // $('#messages').append($('<li>').text(msg))
     console.log(msg)
   })
-  $('#chat-rooms').on('click', '.delete', onDelete)
-  $('#chat-rooms').on('submit', '.update', onUpdate)
+  $('#messages').on('click', '.delete', onMGDelete)
+  $('#messages').on('submit', '.update', onMGUpdate)
+  $('#chat-rooms').on('click', '.delete', onCRDelete)
+  $('#chat-rooms').on('submit', '.update', onCRUpdate)
   $('#test').on('click', test)
   $('#create-chat-room').on('submit', createChatroom)
   $('#chat-rooms').on('click', '.chat-room-class', joinChatroom)
