@@ -1,3 +1,10 @@
 {{#each chatrooms as |room|}}
   <li data-name="{{room.name}}" data-id="{{room._id}}" class='chat-room-class'>{{room.name}}</li>
+  {{#if room.editable}}
+    <form data-id="{{room._id}}" class="update">
+      <input name="chatroom[name]" type="text" placeholder="name">
+      <button>update</button>
+    </form>
+    <button data-id={{room._id}} class="delete">delete</button>
+  {{/if}}
 {{/each}}

@@ -2,6 +2,7 @@
 
 const store = require('../store')
 // const gameEvents = require('../game/events')
+const messagesEvents = require('../messages/messageEvents')
 
 const onSuccess = message => {
   $('#message').text(message)
@@ -23,6 +24,7 @@ const onSignUpFailure = () => {
 
 const onSignInSuccess = responseData => {
   store.user = responseData.user
+  messagesEvents.getChatrooms()
   // console.log(store)
   $('#upper-left').text('You successfully signed in!')
   $('.after-auth').show()

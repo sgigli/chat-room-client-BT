@@ -28,7 +28,7 @@ const index = () => {
 
 const destroy = (id) => {
   return $.ajax({
-    url: config.apiUrl + '/messages/' + id,
+    url: config.apiUrl + '/chatrooms/' + id,
     method: 'DELETE',
     headers: {
       Authorization: `Token token=${store.user.token}`
@@ -38,7 +38,7 @@ const destroy = (id) => {
 
 const update = (formData, id) => {
   return $.ajax({
-    url: config.apiUrl + '/messages/' + id,
+    url: config.apiUrl + '/chatrooms/' + id,
     method: 'PATCH',
     headers: {
       Authorization: `Token token=${store.user.token}`

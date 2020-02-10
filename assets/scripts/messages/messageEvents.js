@@ -42,9 +42,10 @@ const onDelete = (event) => {
   event.preventDefault()
   // console.log($(event.target).data('id'))
   const id = $(event.target).data('id')
+  console.log(id)
   api.destroy(id)
-    .then(() => { socket.emit('chat message', `BLANK`) })
-    .then(getMessages)
+    .then(getChatrooms)
+    // .then(() => { socket.emit('chat message', `BLANK`) })
 }
 
 const onUpdate = event => {
@@ -52,10 +53,10 @@ const onUpdate = event => {
   const form = event.target
   const formData = getFormFields(form)
   const id = $(event.target).data('id')
-  // console.log(formData, id)
+  console.log(formData, id)
   api.update(formData, id)
-    .then(() => { socket.emit('chat message', `BLANK`) })
-    .then(getMessages)
+    // .then(() => { socket.emit('chat message', `BLANK`) })
+    .then(getChatrooms)
 }
 
 const test = event => {
@@ -65,9 +66,14 @@ const test = event => {
 }
 
 const getChatrooms = () => {
+  console.log('test')
   api.indexChatrooms()
     .then(res => {
+      res.chatrooms.forEach(chatroom => { chatroom.editable = chatroom.owner === store.user._id || false })
+      res.chatrooms.forEach(chatroom => { console.log(chatroom.owner) })
+
       const showChatroomsHtml = getChatroomsHtml({ chatrooms: res.chatrooms })
+      $('#chat-rooms').text('')
       $('#chat-rooms').append(showChatroomsHtml)
     })
 }
@@ -77,12 +83,15 @@ const createChatroom = event => {
   const formData = getFormFields(event.target)
   const name = formData.chatroom.name
   api.createChatroom(name)
-    .then(console.log)
+    .then(getChatrooms)
 }
 
 const getCRMessages = () => {
   return api.showChatroom(chatroomId)
     .then(res => {
+      // const filteredForUsername = res.messages.filter(msg => msg.username)
+      // filteredForUsername.forEach(msg => { msg.editable = msg.owner === store.user._id || false })
+      res.chatroom.messages.forEach(msg => { msg.editable = msg.owner === store.user._id || false })
       const data = {
         messages: res.chatroom.messages,
         id: store.user._id
@@ -140,7 +149,7 @@ let chatroomId
 let chatroomName
 const addHandlers = () => {
   // sendMessage()
-  getChatrooms()
+  // getChatrooms()
   $('#get-messages').on('click', getMessages)
   $('#chat-form').submit(sendCRMessage)
   socket.emit('join-room', 'test-room')
@@ -152,13 +161,14 @@ const addHandlers = () => {
     // $('#messages').append($('<li>').text(msg))
     console.log(msg)
   })
-  $('#messages').on('click', '.delete', onDelete)
-  $('#messages').on('submit', '.update', onUpdate)
+  $('#chat-rooms').on('click', '.delete', onDelete)
+  $('#chat-rooms').on('submit', '.update', onUpdate)
   $('#test').on('click', test)
   $('#create-chat-room').on('submit', createChatroom)
   $('#chat-rooms').on('click', '.chat-room-class', joinChatroom)
 }
 
 module.exports = {
-  addHandlers
+  addHandlers,
+  getChatrooms
 }
