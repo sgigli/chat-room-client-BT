@@ -96,7 +96,8 @@ const getChatrooms = () => {
 
       const showChatroomsHtml = getChatroomsHtml({ chatrooms: res.chatrooms })
       $('#chat-rooms').text('')
-      $('#chat-rooms').append(showChatroomsHtml)
+      // $('#chat-rooms').append(showChatroomsHtml)
+      $('.inbox_chat').append(showChatroomsHtml)
     })
 }
 
@@ -119,14 +120,21 @@ const getCRMessages = () => {
         id: store.user._id
       }
       const showMessagesHtml = getMessagesHtml(data)
-      $('#messages').text('')
-      $('#messages').append(showMessagesHtml)
+      // $('#messages').text('')
+      $('.msg_history').text('')
+      // $('#messages').append(showMessagesHtml)
+      $('.msg_history').append(showMessagesHtml)
+      // const elem = $('.msg_history')
+      const elem = document.getElementById('scroll-to-bottom')
+      elem.scrollTop = elem.scrollHeight
     })
 }
 
 const joinChatroom = (event) => {
-  chatroomId = $(event.target).data('id')
-  chatroomName = $(event.target).data('name')
+  chatroomId = $(event.target).closest('.chat_list').data('id')
+  chatroomName = $(event.target).closest('.chat_list').data('name')
+  // console.log(chatroomId, chatroomName)
+  // console.log($(event.target).closest('.chat_list').data('name'))
   getCRMessages(chatroomId)
     .then(() => {
       socket.emit('join-room', chatroomName)
@@ -154,16 +162,19 @@ const sendCRMessage = event => {
   event.preventDefault()
   const msg = $('#m').val()
   const username = store.user.username
-  // console.log(chatroomId)
+  console.log(chatroomId)
   api.createCRMessage(msg, username, chatroomId)
     // .then(console.log)
     .then(res => {
       console.log(res)
       const showPostHtml = getPostHtml({ msg: res.message, id: store.user._id })
-      $('#messages').append(showPostHtml)
+      // $('#messages').append(showPostHtml)
+      $('.msg_history').append(showPostHtml)
       // $('#messages').append($('<li>').text(`${username}: ${msg}`))
       // socket.emit('chat message', `${username}: ${res.message.text}`)
       socket.emit('send-message', chatroomName)
+      const elem = document.getElementById('scroll-to-bottom')
+      elem.scrollTop = elem.scrollHeight
     })
 }
 
@@ -189,7 +200,8 @@ const addHandlers = () => {
   $('#chat-rooms').on('submit', '.update', onCRUpdate)
   $('#test').on('click', test)
   $('#create-chat-room').on('submit', createChatroom)
-  $('#chat-rooms').on('click', '.chat-room-class', joinChatroom)
+  // $('#chat-rooms').on('click', '.chat-room-class', joinChatroom)
+  $('.inbox_chat').on('click', '.chat_list', joinChatroom)
 }
 
 module.exports = {

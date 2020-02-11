@@ -1,10 +1,22 @@
 {{#each chatrooms as |room|}}
-  <li data-name="{{room.name}}" data-id="{{room._id}}" class='chat-room-class'>{{room.name}}</li>
-  {{#if room.editable}}
+  <!-- <li data-name="{{room.name}}" data-id="{{room._id}}" class='chat-room-class'>{{room.name}}</li> -->
+  {{log room.name}}
+  {{log room._id}}
+  <div class="chat_list active_chat" data-name="{{room.name}}" data-id="{{room._id}}">
+    <div class="chat_people" data-name="{{room.name}}" data-id="{{room._id}}">
+      <div class="chat_ib" data-name="{{room.name}}" data-id="{{room._id}}">
+        <h5 data-name="{{room.name}}" data-id="{{room._id}}">
+          {{room.name}} <span class="chat_date" data-name="{{room.name}}" data-id="{{room._id}}">Dec 25</span></h5>
+        <!-- <p>Test, which is a new approach to have all solutions
+          astrology under one roof.</p> -->
+      </div>
+    </div>
+  </div>
+  <!-- {{#if room.editable}}
     <form data-id="{{room._id}}" class="update">
       <input name="chatroom[name]" type="text" placeholder="name">
       <button>update</button>
     </form>
     <button data-id={{room._id}} class="delete">delete</button>
-  {{/if}}
+  {{/if}} -->
 {{/each}}

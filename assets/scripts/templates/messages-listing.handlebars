@@ -1,5 +1,22 @@
 {{#each messages as |msg|}}
-  <li data-id="{{msg._id}}">{{msg.username}}: {{msg.text}}
+  {{#if msg.editable}}
+    <div class="outgoing_msg">
+      <div class="sent_msg">
+        <p>{{msg.text}}</p>
+        <span class="time_date"> 11:01 AM | June 9</span>
+      </div>
+    </div>
+  {{else}}
+    <div class="incoming_msg">
+      <div class="received_msg">
+        <div class="received_withd_msg">
+          <p>{{msg.username}}: {{msg.text}}</p>
+          <span class="time_date"> 11:01 AM | June 9</span>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+  <!-- <li data-id="{{msg._id}}">{{msg.username}}: {{msg.text}}
     {{#if msg.editable}}
       <form data-id="{{msg._id}}" data-name="{{msg.username}}" class="update">
         <input name="message[text]" type="text" placeholder="message">
@@ -7,5 +24,5 @@
       </form>
       <button data-id={{msg._id}} class="delete">delete</button>
     {{/if}}
-  </li>
+  </li> -->
 {{/each}}

@@ -1,7 +1,14 @@
-<li data-id="{{msg._id}}">{{msg.username}}: {{msg.text}}
+<div class="outgoing_msg" data-id="{{msg._id}}">
+  <div class="sent_msg">
+    <p>{{msg.text}}</p>
+    <span class="time_date"> 11:01 AM | June 9</span>
+  </div>
+</div>
+
+<!-- <li data-id="{{msg._id}}">{{msg.username}}: {{msg.text}}
   <form data-id="{{msg._id}}" class="update">
     <input name="message[text]" type="text" placeholder="message">
     <button>update</button>
   </form>
   <button data-id={{msg._id}} class="delete">delete</button>
-</li>
+</li> -->
