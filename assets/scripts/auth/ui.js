@@ -6,18 +6,21 @@ const messagesEvents = require('../messages/messageEvents')
 
 const onSuccess = message => {
   $('#message').text(message)
-  $('#auth-message').text(message)
+  $('.auth-message').text(message)
   $('form').trigger('reset')
 }
 
 const onFailure = message => {
   $('#message').text(message)
-  $('#auth-message').text(message)
+  $('.auth-message').text(message)
   $('form').trigger('reset')
 }
 
 const onSignUpSuccess = () => {
-  onSuccess('You successfully signed up, now sign in!')
+  // onSuccess('You successfully signed up, now sign in!')
+  $('#signupModal').modal('hide')
+  $('#signinModal').modal('show')
+  onSuccess('Success!')
 }
 
 const onSignUpFailure = () => {
@@ -27,6 +30,7 @@ const onSignUpFailure = () => {
 const onSignInSuccess = responseData => {
   store.user = responseData.user
   messagesEvents.getChatrooms()
+  $('#signinModal').modal('hide')
   // console.log(store)
   onSuccess('You successfully signed in!')
   $('.after-auth').show()

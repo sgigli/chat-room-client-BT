@@ -51,9 +51,11 @@ const onDemo = event => {
 const addHandlers = () => {
   $('#sign-up').on('submit', onSignUp)
   $('#sign-in').on('submit', onSignIn)
-  $('#sign-out').on('submit', onSignOut)
+  $('#sign-out').on('click', onSignOut)
   $('#change-password').on('submit', onChangePassword)
   $('#demo').on('click', onDemo)
+  $('.modal-message').on('click', function () { $('.auth-message').text('') })
+  // $('#signupModal').on('submit', '#sign-up', onSignUp)
 }
 
 module.exports = {

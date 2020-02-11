@@ -48,3 +48,35 @@ body {
 .after-auth {
   display: none;
 }
+
+.chatrooms-div {
+  background-color: #cce6ff;
+  height: 100vh;
+}
+
+.messages-div {
+  background-color: #e6ffee;
+  height: 100vh;
+}
+
+.sign-up-div {
+  margin: 0 auto;
+}
+
+#auth-message {
+  margin: 0 auto;
+}
+
+#sign-up input {
+  display: block;
+  margin: 5px;
+}
+
+#sign-in input {
+  display: block;
+  margin: 5px;
+}
+
+.modal-sign {
+  margin: 0 auto;
+}
