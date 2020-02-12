@@ -16,9 +16,12 @@
   <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"
-</head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+</head>
 <body>
   <!-- <h1>Browser Template</h1> -->
   <!-- Button trigger modal -->
@@ -47,20 +50,23 @@
       </ul>
     </div>
   </nav>
-  <div class="container">
+
+  <div class="container after-auth">
     <div class="messaging">
       <div class="inbox_msg">
         <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
-              <h4>Recent</h4>
+              <h4>Rooms</h4>
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">
                 <input type="text" class="search-bar" placeholder="Search">
                 <span class="input-group-addon">
                   <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
+                </span>
+                <a id="edit-show" href="#" data-toggle="modal" data-target="#createChatroomModal">New</a>
+              </div>
             </div>
           </div>
           <div class="inbox_chat">
@@ -77,7 +83,7 @@
         </div>
         <div class="mesgs">
           <div id="scroll-to-bottom" class="msg_history">
-            <div class="incoming_msg">
+            <!-- <div class="incoming_msg">
               <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
               <div class="received_msg">
                 <div class="received_withd_msg">
@@ -119,7 +125,7 @@
                   <span class="time_date"> 11:01 AM | Today</span>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="type_msg">
             <form id="chat-form" class="input_msg_write">
@@ -285,6 +291,69 @@
     </div>
   </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="createChatroomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create chatroom</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-sign">
+          <div class="container">
+            <form id="create-chat-room" class="form-horizontal" action="/action_page.php">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="email" placeholder="Enter name" name="chatroom[name]">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="editChatroomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit chatroom</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-sign">
+          <div class="container">
+            <form id="edit-chat-room" class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="email" placeholder="Enter name" name="chatroom[name]">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button id="chat-room-delete" type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- <h1>Chatrooms</h1>
   <h3>Create Chatroom</h3>
   <form id="create-chat-room">
@@ -382,6 +451,6 @@
     </div>
   </div> -->
   <!--  -->
-</body>
+  </body>
 
 </html>

@@ -63,9 +63,9 @@ const onMGUpdate = event => {
 const onCRDelete = (event) => {
   event.preventDefault()
   // console.log($(event.target).data('id'))
-  const id = $(event.target).data('id')
-  console.log(id)
-  api.destroy(id)
+  // const id = $(event.target).data('id')
+  // console.log(id)
+  api.destroy(chatroomId)
     .then(getChatrooms)
     // .then(() => { socket.emit('chat message', `BLANK`) })
 }
@@ -74,9 +74,9 @@ const onCRUpdate = event => {
   event.preventDefault()
   const form = event.target
   const formData = getFormFields(form)
-  const id = $(event.target).data('id')
-  console.log(formData, id)
-  api.update(formData, id)
+  // const id = $(event.target).data('id')
+  console.log(formData, chatroomId)
+  api.update(formData, chatroomId)
     // .then(() => { socket.emit('chat message', `BLANK`) })
     .then(getChatrooms)
 }
@@ -95,7 +95,7 @@ const getChatrooms = () => {
       res.chatrooms.forEach(chatroom => { console.log(chatroom.owner) })
 
       const showChatroomsHtml = getChatroomsHtml({ chatrooms: res.chatrooms })
-      $('#chat-rooms').text('')
+      $('.inbox_chat').text('')
       // $('#chat-rooms').append(showChatroomsHtml)
       $('.inbox_chat').append(showChatroomsHtml)
     })
@@ -161,8 +161,8 @@ const joinChatroom = (event) => {
 const sendCRMessage = event => {
   event.preventDefault()
   const msg = $('#m').val()
+  console.log(msg)
   const username = store.user.username
-  console.log(chatroomId)
   api.createCRMessage(msg, username, chatroomId)
     // .then(console.log)
     .then(res => {
@@ -175,8 +175,14 @@ const sendCRMessage = event => {
       socket.emit('send-message', chatroomName)
       const elem = document.getElementById('scroll-to-bottom')
       elem.scrollTop = elem.scrollHeight
+      $('#m').val('')
     })
 }
+
+// const onGetMGID = (event) => {
+//   const id = $(event.target).data('id')
+//   console.log(id)
+// }
 
 let chatroomId
 let chatroomName
@@ -196,8 +202,11 @@ const addHandlers = () => {
   })
   $('#messages').on('click', '.delete', onMGDelete)
   $('#messages').on('submit', '.update', onMGUpdate)
-  $('#chat-rooms').on('click', '.delete', onCRDelete)
-  $('#chat-rooms').on('submit', '.update', onCRUpdate)
+  // $('#chat-rooms').on('click', '.delete', onCRDelete)
+  $('#chat-room-delete').on('click', onCRDelete)
+  // $('.inbox_chat').on('click', '.update', onGetMGID)
+  $('#edit-chat-room').on('submit', onCRUpdate)
+
   $('#test').on('click', test)
   $('#create-chat-room').on('submit', createChatroom)
   // $('#chat-rooms').on('click', '.chat-room-class', joinChatroom)

@@ -119,6 +119,20 @@ header {
   display: inline-block;
 }
 
+#edit-show {
+  display: inline-block;
+  margin-left: 18px;
+}
+
+.cr-name-edit-button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
 .form-control,
 .form-control:focus,
 .input-group-addon {
