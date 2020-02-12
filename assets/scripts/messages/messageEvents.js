@@ -67,6 +67,11 @@ const onCRDelete = (event) => {
   // console.log(id)
   api.destroy(chatroomId)
     .then(getChatrooms)
+    .then(() => {
+      $('#editChatroomModal').modal('hide')
+      $('.msg_history').text('')
+      socket.emit('refresh-chatrooms', name)
+    })
     // .then(() => { socket.emit('chat message', `BLANK`) })
 }
 
@@ -79,6 +84,8 @@ const onCRUpdate = event => {
   api.update(formData, chatroomId)
     // .then(() => { socket.emit('chat message', `BLANK`) })
     .then(getChatrooms)
+    .then($('#editChatroomModal').modal('hide'))
+    .then(() => { socket.emit('refresh-chatrooms', name) })
 }
 
 const test = event => {
@@ -107,6 +114,8 @@ const createChatroom = event => {
   const name = formData.chatroom.name
   api.createChatroom(name)
     .then(getChatrooms)
+    .then($('#createChatroomModal').modal('hide'))
+    .then(() => { socket.emit('refresh-chatrooms', name) })
 }
 
 const getCRMessages = () => {
@@ -141,7 +150,7 @@ const joinChatroom = (event) => {
     })
     .then(() => {
       socket.on('message', function (msg) {
-        console.log('TEST')
+        // console.log('TEST')
         getCRMessages()
       })
     })
@@ -179,6 +188,25 @@ const sendCRMessage = event => {
     })
 }
 
+const search = (event) => {
+  event.preventDefault()
+  const rooms = $('.chat_list')
+  console.log(rooms)
+  const input = $('#search-input').val()
+  // let roomId
+  rooms.each(function () {
+    console.log($(this).data('name'))
+    if ($(this).data('name') === input) {
+      // return $(this).data('id')
+      chatroomId = $(this).data('id')
+      console.log($(this).data('id'))
+      getCRMessages()
+    }
+  })
+  // console.log(roomId)
+  // const room = rooms.find(msg => )
+}
+
 // const onGetMGID = (event) => {
 //   const id = $(event.target).data('id')
 //   console.log(id)
@@ -200,6 +228,9 @@ const addHandlers = () => {
     // $('#messages').append($('<li>').text(msg))
     console.log(msg)
   })
+  socket.on('refresh-cr', function (msg) {
+    getChatrooms()
+  })
   $('#messages').on('click', '.delete', onMGDelete)
   $('#messages').on('submit', '.update', onMGUpdate)
   // $('#chat-rooms').on('click', '.delete', onCRDelete)
@@ -211,6 +242,10 @@ const addHandlers = () => {
   $('#create-chat-room').on('submit', createChatroom)
   // $('#chat-rooms').on('click', '.chat-room-class', joinChatroom)
   $('.inbox_chat').on('click', '.chat_list', joinChatroom)
+  $('#search').on('submit', search)
+  $('.modal-click').on('click', function () {
+    $('.auth-message').text('')
+  })
 }
 
 module.exports = {

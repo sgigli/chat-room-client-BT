@@ -5,7 +5,7 @@
   <div class="chat_list active_chat" data-name="{{room.name}}" data-id="{{room._id}}">
     <div class="chat_people">
       <div class="chat_ib">
-        <h5>
+        <h5 class="chat_list_msg">
           {{room.name}}<span class="chat_date">
             {{#if room.editable}}
               <a class="update" href="#" data-id="{{room._id}}" data-toggle="modal" data-target="#editChatroomModal">Edit</a></span>

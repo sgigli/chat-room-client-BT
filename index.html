@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Chat Place</title>
+  <title>Chatter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Do not add `link` tags-->
@@ -26,20 +26,20 @@
   <!-- <h1>Browser Template</h1> -->
   <!-- Button trigger modal -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">CHAT PLACE</a>
+    <a class="navbar-brand" href="#">CHATTER</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item active before-auth">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Sign Up <span class="sr-only">(current)</span></a>
+          <a class="nav-link modal-click" href="#" data-toggle="modal" data-target="#signupModal">Sign Up <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active before-auth">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#signinModal">Sign in </a>
+          <a class="nav-link modal-click" href="#" data-toggle="modal" data-target="#signinModal">Sign in </a>
         </li>
         <li class="nav-item dropdown after-auth">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link modal-click dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Settings
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -60,13 +60,13 @@
               <h4>Rooms</h4>
             </div>
             <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar" placeholder="Search">
+              <form id="search" class="stylish-input-group">
+                <input id="search-input" type="text" class="search-bar" placeholder="Search">
                 <span class="input-group-addon">
                   <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                 </span>
                 <a id="edit-show" href="#" data-toggle="modal" data-target="#createChatroomModal">New</a>
-              </div>
+              </form>
             </div>
           </div>
           <div class="inbox_chat">
