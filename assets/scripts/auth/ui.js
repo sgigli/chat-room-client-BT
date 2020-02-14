@@ -31,7 +31,7 @@ const onSignInSuccess = responseData => {
   store.user = responseData.user
   messagesEvents.getChatrooms()
   $('#signinModal').modal('hide')
-  // console.log(store)
+  $('#username').text(`Welcome, ${store.user.username}`)
   onSuccess('You successfully signed in!')
   $('.after-auth').show()
   $('.before-auth').hide()
@@ -43,7 +43,7 @@ const onSignInFailure = () => {
 
 const onSignOutSuccess = () => {
   store.user = {}
-  $('#messages').text('')
+  messagesEvents.signOutClear()
   onSuccess('You successfully signed out!')
   $('.before-auth').show()
   $('.after-auth').hide()

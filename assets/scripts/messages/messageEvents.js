@@ -123,7 +123,21 @@ const getCRMessages = () => {
     .then(res => {
       // const filteredForUsername = res.messages.filter(msg => msg.username)
       // filteredForUsername.forEach(msg => { msg.editable = msg.owner === store.user._id || false })
-      res.chatroom.messages.forEach(msg => { msg.editable = msg.owner === store.user._id || false })
+      const l = res.chatroom.messages.length
+      const msgs = res.chatroom.messages
+      for (let i = 0; i < l; i++) {
+        msgs[i].editable = msgs[i].owner === store.user._id || false
+        if (i === l - 1) {
+          msgs[i].last = true
+        }
+      }
+      // res.chatroom.messages.forEach(msg => {
+      //   msg.editable = msg.owner === store.user._id || false
+      //
+      // })
+      // if (res.chatroom.messages[l].editable) {
+      //   res.chatroom.messages.
+      // }
       const data = {
         messages: res.chatroom.messages,
         id: store.user._id
@@ -156,31 +170,15 @@ const joinChatroom = (event) => {
     })
 }
 
-// const joinRoom = () => {
-//   socket.emit('join-room', chatroomName)
-// }
-//
-// const listenForMessage = () => {
-//   socket.on(chatroomName, function (msg) {
-//     // $('#messages').append($('<li>').text(msg))
-//     console.log('TEST of rooms')
-//   })
-// }
-
 const sendCRMessage = event => {
   event.preventDefault()
   const msg = $('#m').val()
   console.log(msg)
   const username = store.user.username
   api.createCRMessage(msg, username, chatroomId)
-    // .then(console.log)
     .then(res => {
-      console.log(res)
       const showPostHtml = getPostHtml({ msg: res.message, id: store.user._id })
-      // $('#messages').append(showPostHtml)
       $('.msg_history').append(showPostHtml)
-      // $('#messages').append($('<li>').text(`${username}: ${msg}`))
-      // socket.emit('chat message', `${username}: ${res.message.text}`)
       socket.emit('send-message', chatroomName)
       const elem = document.getElementById('scroll-to-bottom')
       elem.scrollTop = elem.scrollHeight
@@ -193,24 +191,22 @@ const search = (event) => {
   const rooms = $('.chat_list')
   console.log(rooms)
   const input = $('#search-input').val()
-  // let roomId
   rooms.each(function () {
     console.log($(this).data('name'))
     if ($(this).data('name') === input) {
-      // return $(this).data('id')
       chatroomId = $(this).data('id')
       console.log($(this).data('id'))
       getCRMessages()
     }
   })
-  // console.log(roomId)
-  // const room = rooms.find(msg => )
 }
 
-// const onGetMGID = (event) => {
-//   const id = $(event.target).data('id')
-//   console.log(id)
-// }
+const signOutClear = () => {
+  console.log('signoutcleartest')
+  $('.msg_history').text('')
+  chatroomName = ''
+  chatroomId = ''
+}
 
 let chatroomId
 let chatroomName
@@ -219,6 +215,8 @@ const addHandlers = () => {
   // getChatrooms()
   $('#get-messages').on('click', getMessages)
   $('#chat-form').submit(sendCRMessage)
+  $('.msg_send_btn').on('click', sendCRMessage)
+  // $('.fa-paper-plane-o').submit(sendCRMessage)
   socket.emit('join-room', 'test-room')
   socket.on('chat message', function (msg) {
     // $('#messages').append($('<li>').text(msg))
@@ -250,5 +248,6 @@ const addHandlers = () => {
 
 module.exports = {
   addHandlers,
-  getChatrooms
+  getChatrooms,
+  signOutClear
 }

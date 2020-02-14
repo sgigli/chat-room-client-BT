@@ -16,9 +16,9 @@ const demoSignIn = () => {
     url: config.apiUrl + '/sign-in',
     method: 'POST',
     data: {
-      "credentials": {
-        "email": "user@user.com",
-        "password": "1"
+      'credentials': {
+        'email': 'user@user.com',
+        'password': '1'
       }
     }
   })

@@ -1,13 +1,25 @@
 {{#each messages as |msg|}}
   {{#if msg.editable}}
-    <div class="outgoing_msg">
+    <div
+      {{#if msg.last}}
+        class="outgoing_msg last_out"
+      {{else}}
+        class="outgoing_msg"
+      {{/if}}
+    >
       <div class="sent_msg">
         <!-- <span class="time_date"></span> -->
         <p>{{msg.text}}</p>
       </div>
     </div>
   {{else}}
-    <div class="incoming_msg">
+    <div
+      {{#if msg.last}}
+        class="incoming_msg last_in"
+      {{else}}
+        class="incoming_msg"
+      {{/if}}
+    >
       <div class="received_msg">
         <div class="received_withd_msg">
           <span class="time_date">{{msg.username}}</span>
