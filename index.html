@@ -38,6 +38,12 @@
         <li class="nav-item active before-auth">
           <a class="nav-link modal-click" href="#" data-toggle="modal" data-target="#signinModal">Sign in </a>
         </li>
+        <li class="nav-item active before-auth">
+          <button id="demo" class="nav-link" href="#">Demo </button>
+        </li>
+        <li class="nav-item after-auth">
+          <a id="username" class="nav-link" href="#" ></a>
+        </li>
         <li class="nav-item dropdown after-auth">
           <a class="nav-link modal-click dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Settings
@@ -65,7 +71,7 @@
                 <span class="input-group-addon">
                   <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                 </span>
-                <a id="edit-show" href="#" data-toggle="modal" data-target="#createChatroomModal">New</a>
+                <a id="edit-show" style="text-decoration:none" href="#" data-toggle="modal" data-target="#createChatroomModal">New</a>
               </form>
             </div>
           </div>
@@ -178,7 +184,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Chat Place</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Chatter</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
