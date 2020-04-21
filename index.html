@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chatter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Do not add `link` tags-->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Do not add `script` tags-->
+  <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+  <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">CHATTER</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active before-auth">
+          <a class="nav-link modal-click" href="#" data-toggle="modal" data-target="#signupModal">Sign Up <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active before-auth">
+          <a class="nav-link modal-click" href="#" data-toggle="modal" data-target="#signinModal">Sign in </a>
+        </li>
+        <li class="nav-item active before-auth">
+          <button id="demo" class="nav-link" href="#">Demo </button>
+        </li>
+        <li class="nav-item after-auth">
+          <a id="username" class="nav-link" href="#" ></a>
+        </li>
+        <li class="nav-item dropdown after-auth">
+          <a class="nav-link modal-click dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Settings
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#changepasswordModal">Change Password</a>
+            <a class="dropdown-item" href="#" id="sign-out">Sign Out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container after-auth">
+    <div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>Rooms</h4>
+            </div>
+            <div class="srch_bar">
+              <form id="search" class="stylish-input-group">
+                <input id="search-input" type="text" class="search-bar" placeholder="Search">
+                <span class="input-group-addon">
+                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span>
+                <a id="edit-show" style="text-decoration:none" href="#" data-toggle="modal" data-target="#createChatroomModal">New</a>
+              </form>
+            </div>
+          </div>
+          <div class="inbox_chat">
+          </div>
+        </div>
+        <div class="mesgs">
+          <div id="scroll-to-bottom" class="msg_history">
+          </div>
+          <div class="type_msg">
+            <form id="chat-form" class="input_msg_write">
+              <input id="m" type="text" class="write_msg" placeholder="Type a message" />
+              <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Chatter</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-sign-up">
+          <div class="signup-form">
+            <form id="sign-up" action="/examples/actions/confirmation.php" method="post">
+              <h2>Sign Up</h2>
+              <p>Please fill in this form to create an account!</p>
+              <hr>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                  <input type="text" class="form-control" name="credentials[username]" placeholder="Username" required="required">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
+                  <input type="email" class="form-control" name="credentials[email]" placeholder="Email Address" required="required">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                  <input type="text" class="form-control" name="credentials[password]" placeholder="Password" required="required">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                    <i class="fa fa-check"></i>
+                  </span>
+                  <input type="text" class="form-control" name="credentials[password_confirmation]" placeholder="Confirm Password" required="required">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+              </div>
+            </form>
+            <div class="text-center">Already have an account? <a href="#">Login here</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-sign">
+          <h4 class="auth-message"></h4>
+          <div class='sign-in-div'>
+            <form id="sign-in">
+              <input name="credentials[email]" type="text" placeholder="email">
+              <input name="credentials[password]" type="password" placeholder="password">
+              <button class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="changepasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-sign">
+          <h4 class="auth-message"></h4>
+          <div class='sign-in-div'>
+            <form id="change-password">
+              <input type="password" name="passwords[old]" placeholder="Old Password">
+              <input type="password" name="passwords[new]" placeholder="New Password">
+              </br>
+              <button class="btn btn-primary">Change Password</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="createChatroomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create chatroom</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-sign">
+          <div class="container">
+            <form id="create-chat-room" class="form-horizontal" action="/action_page.php">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="Enter name" name="chatroom[name]">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="editChatroomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit chatroom</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-sign">
+          <div class="container">
+            <form id="edit-chat-room" class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Name:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="Enter name" name="chatroom[name]">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button id="chat-room-delete" type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
